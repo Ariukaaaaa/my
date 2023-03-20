@@ -5,7 +5,7 @@ import {NavigationContainer}from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import { HomeScreen } from './Home';
 import { MenuScreen } from './Menu';
-import { Bluetooth } from 'expo-bluetooth';
+// import { Bluetooth } from 'expo-bluetooth';
 
 const Stack=createStackNavigator();
 
@@ -55,18 +55,18 @@ function Move(){
     )
 }
 export function RemoteScreen({navigation}){
-    const [bluetoothEnabled, setBluetoothEnabled] = useState(false);
-    const [connectedDevices, setConnectedDevices] = useState([]);
+    // const [bluetoothEnabled, setBluetoothEnabled] = useState(false);
+    // const [connectedDevices, setConnectedDevices] = useState([]);
 
-    const handleClick = async () => {
-        const enabled = await Bluetooth.getAvailabilityAsync();
-        setBluetoothEnabled(enabled);
+    // const handleClick = async () => {
+    //     const enabled = await Bluetooth.getAvailabilityAsync();
+    //     setBluetoothEnabled(enabled);
 
-        if (enabled) {
-        const devices = await Bluetooth.getConnectedDevicesAsync();
-        setConnectedDevices(devices);
-        }
-    };
+    //     if (enabled) {
+    //     const devices = await Bluetooth.getConnectedDevicesAsync();
+    //     setConnectedDevices(devices);
+    //     }
+    // };
 
 
 

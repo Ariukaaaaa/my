@@ -4,16 +4,9 @@ import {View,Text,StyleSheet,TouchableOpacity,Image} from 'react-native';
 import {Input ,NativeBaseProvider,Button,Icon,Box}from 'native-base';
 import {useNavigation,NavigationContainer} from '@react-navigation/native';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
+import { TextInput } from 'react-native-gesture-handler';
 
 export function LoginScreen({navigation}){
-
-    const [selectedIndex, setSelectedIndex] = useState(0);
-    
-    // const screens = [LoginS, SignUp];
-    // const currentScreen = screens[selectedIndex];
-    const handlePress = () => {
-        console.log('Button pressed!');
-      };
 
     return (
         <NativeBaseProvider>
@@ -30,64 +23,46 @@ export function LoginScreen({navigation}){
                 
                 
 
-                
+                <View style={styles.BoxContainer}>
                 {/* Box */}
-                
-                <View style={styles.boxStyle}>
-                    <Box style={{alignItems:'center'}}>
+                    <Box style={styles.boxContainer}>
                         {/* Group Buttons Login Sign up */}
                         <View >
-                            <View style={{flexDirection:"row"}}>
-                                <Button style={styles.LoginButtonsDesign} >
-                                    Login                      
-                                </Button>
-                                <Button style={styles.LoginButtonsDesign} onPress={() => navigation.navigate('SignUp')}>
-                                    Sign up
-                                </Button>
-                            </View>
                             {/* Username email input field */}
-                            <View style ={styles.emailInputStyle}>
-                                <View style={styles.emailInput}>
-                                    <Input
-                                        variant="outline"
-                                        placeholder="Username or Email"
-                                        _light={{
-                                            placeholderTextColor:"bluegray.400"
-                                        }}
-                                        _dark={{
-                                            placeholderTextColor:"bluegray.50"
-                                        }}
-                                        />
-                                </View>
-                            </View>
-
-                            {/* Password Input Field */}
-                            <View style={styles.passInputStyle}>
-                                <View style={styles.emailInput}>
-                                    <Input
-                                        variant ="outline"
-                                        secureTextEntry={true}
-                                        placeholder="Password"
-                                        _light={{
-                                            placeholderTextColor:"blueGray.400"
-                                        }}
-                                        _dark={{
-                                            placeholderTextColor:"blueGray.50"
-                                        }}
-                                        />
-                                </View>
+                            <View style ={styles.emailInputContainer}>
+                                <TextInput 
+                                placeholder='Email '
+                                // valu={}
+                                //onChanceText={text=>}
+                                style={styles.emailInput}
+                                />
+                                <TextInput 
+                                placeholder='password '
+                                // valu={}
+                                //onChanceText={text=>}
+                                style={styles.emailInput}
+                                secureTextEntry
+                                />
                             </View>
 
                             {/* Button */ }
-                            <View style={styles.emailInputStyle}>
-                                <Button style={styles.LoginButtonDesign} onPress={() => navigation.navigate('Remote')} >
-                                    Login
-                                </Button>
+                            <View style={styles.buttonContainer}>
+                                <TouchableOpacity 
+                                onPress={() => { }}
+                                    style={[styles.LoginButtonsDesign,styles.LoginButtonsDesignOutline]}
+                                >
+                                    <Text style={styles.LoginButtonText}>Login</Text>
+                                </TouchableOpacity>
+                                <TouchableOpacity 
+                                onPress={() => { }}
+                                    style={[styles.LoginButtonsDesign,styles.LoginButtonsDesignOutline]}
+                                >
+                                    <Text style={styles.LoginButtonText}>Sign up</Text>
+                                </TouchableOpacity>
                             </View>                     
                                 
                         </View>
                     </Box> 
-
                 </View>
             </View>
         </NativeBaseProvider>
@@ -106,21 +81,42 @@ const styles=StyleSheet.create({
         position:'absolute',
         zIndex:1
     },
-    emailInputStyle:{
+    emailInputContainer:{
         marginTop:30,
+        width:"80%",
+        
     },
-    passInputStyle:{
-        marginTop:30,
+    emailInput:{
+        width:"100%",
+        padding:15,
+        borderColor:"#539ee3",
+        borderWidth:2
     },
-    LoginButtonDesign:{
-        backgroundColor:'#539ee3'
+    buttonContainer:{
+        width:200,
+        marginTop:20,
+        justifyContent:'center',
+        alignContent:"center",
+    },
+    LoginButtonsDesignOutline:{
+        borderColor:"#539ee3",
+        borderWidth:2
     },
     LoginButtonsDesign:{
-        backgroundColor:'#539ee3',
-        width:150
+        // backgroundColor:'#539ee3',
+        width:"100%",
+        padding:15,
+        marginTop:5,
+        borderRadius: 15,
+
     },
-    boxStyle:{
-        justifyContent:'space-around',
+    BoxContainer:{
+        width:'96%',
+        height:"58%",
+        top:"38.9%",
+        left: '27.5%',
+    },
+    boxContainer:{
         backgroundColor: '#fff',
         borderRadius: 30,
         elevation: 10,
@@ -128,14 +124,16 @@ const styles=StyleSheet.create({
         shadowOffset: { width: 0, height: 2 },
         shadowOpacity: 0.4,
         shadowRadius: 4,
-        position: 'absolute',
+        justifyContent:'center',
+        alignContent:"center",
+        // position: 'absolute',
         zIndex:3,
-        left: '27.5%',
-        top: '38.5%',
-        right:'-23%',
-        bottom:'3%',
+        // right:'-23%',
+        width:"100%",
+        height:"100%",
         transform: [{ translateX: -100 }, { translateY: -100 }],
     },
+
     Login3Image:{
         height:"30%",
         width:"100%",

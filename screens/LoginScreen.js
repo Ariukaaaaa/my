@@ -1,13 +1,41 @@
-import React ,{useState} from 'react';
+import React ,{useEffect, useState} from 'react';
 import { ButtonGroup } from 'react-native-elements';
 import {View,Text,StyleSheet,TouchableOpacity,Image} from 'react-native';
 import {Input ,NativeBaseProvider,Button,Icon,Box}from 'native-base';
-import {useNavigation,NavigationContainer} from '@react-navigation/native';
-import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import { TextInput } from 'react-native-gesture-handler';
+import {auth} from '../firebase';
+import { useNavigation } from '@react-navigation/core';
+const LoginScreen = () =>{
+    const [email,setEmail]=useState('')
+    const [password,setPassword]=useState('')
+    const navigation=useNavigation()
+    useEffect(()=> {
+        const unsubscribe = auth.onAuthStateChanged(user=>{
+            if(user){
+                navigation.navigate("Remote")
+            }
+        })
+        return unsubscribe
+    },[])
 
-export function LoginScreen({navigation}){
-
+    const handleSignUp = () =>{
+        auth 
+        .createUserWithEmailAndPassword(email,password)
+        .then(userCredentials =>{
+            const user= userCredentials.user;
+            console.log('Registered width:',user.email);
+        })
+        .catch(error => alert(error.message))
+    }
+    const handleLogin= () =>{
+        auth
+        .signInWidthEmailAndPassword(email.password)
+        ,then(userCredentials =>{
+            const user =userCredentials.user;
+            console.log('Logged in width',user.email);
+        })
+        .catch(error=>alert(error.message))
+    }
     return (
         <NativeBaseProvider>
             <View style={styles.container}>
@@ -27,19 +55,18 @@ export function LoginScreen({navigation}){
                 {/* Box */}
                     <Box style={styles.boxContainer}>
                         {/* Group Buttons Login Sign up */}
-                        <View >
                             {/* Username email input field */}
                             <View style ={styles.emailInputContainer}>
                                 <TextInput 
                                 placeholder='Email '
-                                // valu={}
-                                //onChanceText={text=>}
+                                valu={email}
+                                onChanceText={text=>setEmail(text)}
                                 style={styles.emailInput}
                                 />
                                 <TextInput 
                                 placeholder='password '
-                                // valu={}
-                                //onChanceText={text=>}
+                                valu={password}
+                                onChanceText={text=>setPassword(password)}
                                 style={styles.emailInput}
                                 secureTextEntry
                                 />
@@ -54,20 +81,19 @@ export function LoginScreen({navigation}){
                                     <Text style={styles.LoginButtonText}>Login</Text>
                                 </TouchableOpacity>
                                 <TouchableOpacity 
-                                onPress={() => { }}
+                                onPress={handleSignUp}
                                     style={[styles.LoginButtonsDesign,styles.LoginButtonsDesignOutline]}
                                 >
                                     <Text style={styles.LoginButtonText}>Sign up</Text>
                                 </TouchableOpacity>
                             </View>                     
-                                
-                        </View>
                     </Box> 
                 </View>
             </View>
         </NativeBaseProvider>
     )
 }
+export default LoginScreen
 const styles=StyleSheet.create({
     container:{
         flex:1,
@@ -90,19 +116,22 @@ const styles=StyleSheet.create({
         width:"100%",
         padding:15,
         borderColor:"#539ee3",
-        borderWidth:2
+        borderWidth:2,
+        borderRadius: 15,
+        marginTop:5,
+        marginLeft:35,
     },
     buttonContainer:{
         width:200,
         marginTop:20,
-        justifyContent:'center',
-        alignContent:"center",
+
     },
     LoginButtonsDesignOutline:{
         borderColor:"#539ee3",
         borderWidth:2
     },
     LoginButtonsDesign:{
+        marginLeft:70,
         // backgroundColor:'#539ee3',
         width:"100%",
         padding:15,
@@ -115,6 +144,7 @@ const styles=StyleSheet.create({
         height:"58%",
         top:"38.9%",
         left: '27.5%',
+        
     },
     boxContainer:{
         backgroundColor: '#fff',
@@ -126,7 +156,7 @@ const styles=StyleSheet.create({
         shadowRadius: 4,
         justifyContent:'center',
         alignContent:"center",
-        // position: 'absolute',
+        position: 'absolute',
         zIndex:3,
         // right:'-23%',
         width:"100%",

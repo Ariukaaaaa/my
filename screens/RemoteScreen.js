@@ -54,7 +54,7 @@ function Move(){
         </NavigationContainer>
     )
 }
-export function RemoteScreen({navigation}){
+const RemoteScreen = () =>{
     // const [bluetoothEnabled, setBluetoothEnabled] = useState(false);
     // const [connectedDevices, setConnectedDevices] = useState([]);
 
@@ -150,6 +150,7 @@ export function RemoteScreen({navigation}){
 
     )
 }
+export default RemoteScreen
 const styles=StyleSheet.create({
     container:{
         flex:1,

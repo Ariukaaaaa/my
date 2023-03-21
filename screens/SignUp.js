@@ -5,7 +5,7 @@ import {Input ,NativeBaseProvider,Button,Icon,Box}from 'native-base';
 import {useNavigation,NavigationContainer} from '@react-navigation/native';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 
-import { config } from './config';
+import { config } from './firebase';
 
 export function SignUpScreen({navigation}){
     const [email, setEmail] = useState('');

@@ -3,11 +3,11 @@ import {View,Text,StyleSheet,TouchableOpacity,Image} from 'react-native';
 import {Input ,NativeBaseProvider,Button,Icon,Box}from 'native-base';
 import {NavigationContainer}from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
-import { HomeScreen } from './Home';
-import { MenuScreen } from './Menu';
-// import { Bluetooth } from 'expo-bluetooth';
+// import { HomeScreen } from './Home';
+// import { MenuScreen } from './Menu';
+import { Bluetooth } from 'expo';
 
-const Stack=createStackNavigator();
+// const Stack=createStackNavigator();
 
 
 function WifiConnectedText(){
@@ -43,30 +43,20 @@ function CelluralConnectedText(){
         </View>
     )
 }
-function Move(){
-    return(
-        <NavigationContainer>
 
-        <Stack.Navigator screenOptions={{headerShown:false}}>
-            <Stack.Screen name="Home" component={HomeScreen}/>
-            <Stack.Screen name="Menu" component={MenuScreen}/>
-        </Stack.Navigator>
-        </NavigationContainer>
-    )
-}
-const RemoteScreen = () =>{
-    // const [bluetoothEnabled, setBluetoothEnabled] = useState(false);
-    // const [connectedDevices, setConnectedDevices] = useState([]);
+export function RemoteScreen ({navigation}){
+    const [bluetoothEnabled, setBluetoothEnabled] = useState(false);
+    const [connectedDevices, setConnectedDevices] = useState([]);
 
-    // const handleClick = async () => {
-    //     const enabled = await Bluetooth.getAvailabilityAsync();
-    //     setBluetoothEnabled(enabled);
+    const handleClick = async () => {
+        const enabled = await Bluetooth.getAvailabilityAsync();
+        setBluetoothEnabled(enabled);
 
-    //     if (enabled) {
-    //     const devices = await Bluetooth.getConnectedDevicesAsync();
-    //     setConnectedDevices(devices);
-    //     }
-    // };
+        if (enabled) {
+        const devices = await Bluetooth.getConnectedDevicesAsync();
+        setConnectedDevices(devices);
+        }
+    };
 
 
 
@@ -110,8 +100,8 @@ const RemoteScreen = () =>{
                         />
                         </Button>
                     </View>
-                    {currentText()}
-                    {/* <Text>Bluetooth enabled: {bluetoothEnabled ? 'yes' : 'no'}</Text>        */}
+                    {/* {currentText()} */}
+                    <Text>Bluetooth enabled: {bluetoothEnabled ? 'yes' : 'no'}</Text>       
                     {/* <Text>Connected devices: {connectedDevices.length}</Text> */}
                     <View style={styles.OpenClose}>
                         <Button style={styles.OpenCloseButton}>
@@ -150,7 +140,7 @@ const RemoteScreen = () =>{
 
     )
 }
-export default RemoteScreen
+
 const styles=StyleSheet.create({
     container:{
         flex:1,

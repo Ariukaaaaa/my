@@ -5,6 +5,7 @@ import {Input ,NativeBaseProvider,Button,Icon,Box}from 'native-base';
 export function MenuScreen({navigation}){
     return(
         <NativeBaseProvider>
+            
             <View style={styles.container}>
                 <View headerButtonsStyle>
                     <Button style={styles.backButtonDesign} onPress={()=>navigation.goBack()}>

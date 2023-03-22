@@ -1,9 +1,8 @@
 import React ,{useEffect, useState} from 'react';
-import { ButtonGroup } from 'react-native-elements';
 import {View,Text,StyleSheet,TouchableOpacity,Image} from 'react-native';
 import {Input ,NativeBaseProvider,Button,Icon,Box}from 'native-base';
 import { TextInput } from 'react-native-gesture-handler';
-import {auth} from '../firebase';
+import {auth} from '../firebaseCnfg';
 import { useNavigation } from '@react-navigation/core';
 const LoginScreen = () =>{
     const [email,setEmail]=useState('')
@@ -12,7 +11,7 @@ const LoginScreen = () =>{
     useEffect(()=> {
         const unsubscribe = auth.onAuthStateChanged(user=>{
             if(user){
-                navigation.navigate("Remote")
+                navigation.replace("Remote")
             }
         })
         return unsubscribe
@@ -75,7 +74,7 @@ const LoginScreen = () =>{
                             {/* Button */ }
                             <View style={styles.buttonContainer}>
                                 <TouchableOpacity 
-                                onPress={() => { }}
+                                onPress={handleLogin}
                                     style={[styles.LoginButtonsDesign,styles.LoginButtonsDesignOutline]}
                                 >
                                     <Text style={styles.LoginButtonText}>Login</Text>
